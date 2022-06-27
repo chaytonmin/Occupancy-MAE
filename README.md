@@ -3,7 +3,7 @@
 Repository for our arxiv paper ["Voxel-MAE: Masked Autoencoders for Pre-training Large-scale Point Clouds"](https://arxiv.org/abs/2206.09900).
 
 ## Introduction
-Mask-based pre-training has achieved great success for self-supervised learning in image, video and language, without manually annotated supervision. However, it has not yet been studied about large-scale point clouds with redundant spatial information in autonomous driving. As the number of large-scale point clouds is huge, it is impossible to reconstruct the input point clouds. In this paper, we propose a mask voxel classification network for large-scale point clouds pre-training. Our key idea is to divide the point clouds into voxel representations and classify whether the voxel contains point clouds. This simple strategy makes the network to be voxel-aware of the object shape, thus improving the performance of downstream task, such as 3D object detection. Our Voxel-MAE with even a 90% masking ratio can still learn representative features for the high spatial redundancy of largescale point clouds. We also validate the effectiveness of Voxel-MAE in unsupervised domain adaptative task, which proves the generalization ability of Voxel-MAE. Our Voxel-MAE proves that it is feasible to pre-train large-scale point clouds without data annotations to enhance the perception ability of the autonomous vehicle. Extensive experiments show great effectiveness of our pre-trained model with 3D object detectors (SECOND, CenterPoint and PV-RCNN) on three popular datasets (KITTI, Waymo, and nuScenes).
+Mask-based pre-training has achieved great success for self-supervised learning in image, video and language, without manually annotated supervision. However, it has not yet been studied about large-scale point clouds with redundant spatial information in autonomous driving. As the number of large-scale point clouds is huge, it is impossible to reconstruct the input point clouds. In this paper, we propose a mask voxel classification network for large-scale point clouds pre-training. Our key idea is to divide the point clouds into voxel representations and classify whether the voxel contains point clouds. This simple strategy makes the network to be voxel-aware of the object shape, thus improving the performance of downstream task, such as 3D object detection. Our Voxel-MAE with even a 90% masking ratio can still learn representative features for the high spatial redundancy of largescale point clouds. We also validate the effectiveness of Voxel-MAE in unsupervised domain adaptative task, which proves the generalization ability of Voxel-MAE. Our Voxel-MAE proves that it is feasible to pre-train large-scale point clouds without data annotations to enhance the perception ability of the autonomous vehicle. Extensive experiments show great effectiveness of our pre-trained model with 3D object detectors (SECOND, CenterPoint and PV-RCNN) on two popular datasets (KITTI, Waymo).
 
 <p align="center">
 <img src="docs/Voxel-MAE.png" width="100%"/>Flowchart of Voxel-MAE
@@ -35,12 +35,6 @@ Waymo:
 
 ```
 python3 train_voxel_mae.py  --cfg_file cfgs/kitti_models/voxel_mae_waymo.yaml --batch_size 4
-```
-
-nuScenes:
-
-```
-python3 train_voxel_mae.py  --cfg_file cfgs/kitti_models/voxel_mae_nuscenes.yaml --batch_size 4
 ```
 
 ### Then traing OpenPCDet
@@ -84,18 +78,6 @@ Similar to  [OpenPCDet](https://github.com/open-mmlab/OpenPCDet) , all models ar
 | [PV-RCNN++](tools/cfgs/waymo_models/pv_rcnn_plusplus.yaml)   |         77.82/77.32 |     69.07/68.62     |     77.99/71.36     |     69.92/63.74     |     71.80/70.71     |     69.31/68.26     |                                                              |                                                              |
 | Voxel-MAE+PV-RCNN++                                          | **78.24**/**77.74** | **69.56**/**69.11** | **79.84**/**73.22** | **71.06**/**64.97** |     71.75/70.64     |     69.26/68.20     | [model](https://drive.google.com/file/d/14vIDI5mXRJbbcU1168OtFG1k6MyS1oaJ/view?usp=sharing) | [model](https://drive.google.com/file/d/1rkxg8L9M8p1RsnBPIgwsmdQB6_-Ft2CX/view?usp=sharing) |
 
-
-
-### NuScenes 3D Object Detection Baselines
-
-The results for nuScenes dataset will be provided soon！！！
-
-|                                                              |  mATE | mASE  | mAOE  | mAVE  | mAAE  |  mAP  |  NDS  |
-| ------------------------------------------------------------ | ----: | :---: | :---: | :---: | :---: | :---: | :---: |
-| [SECOND-MultiHead (CBGS)](tools/cfgs/nuscenes_models/cbgs_second_multihead.yaml) | 31.15 | 25.51 | 26.64 | 26.26 | 20.46 | 50.59 | 62.29 |
-| Voxel-MAE+SECOND-MultiHead (CBGS)                            |    xx |       |       |       |       |       |       |
-| [CenterPoint (voxel_size=0.1)](tools/cfgs/nuscenes_models/cbgs_voxel01_res3d_centerpoint.yaml) | 30.11 | 25.55 | 38.28 | 21.94 | 18.87 | 56.03 | 64.54 |
-| Voxel-MAE+CenterPoint                                        |    xx |       |       |       |       |       |       |
 
 ##  License
 Our codes are released under the Apache 2.0 license.
