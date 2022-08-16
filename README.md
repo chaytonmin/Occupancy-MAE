@@ -3,7 +3,7 @@
 Repository for our arxiv paper ["Voxel-MAE: Masked Autoencoders for Pre-training Large-scale Point Clouds"](https://arxiv.org/abs/2206.09900).
 
 ## Introduction
-Mask-based pre-training has achieved great success for self-supervised learning in image, video and language, without manually annotated supervision. However, it has not yet been studied about large-scale point clouds with redundant spatial information in autonomous driving. As the number of large-scale point clouds is huge, it is impossible to reconstruct the input point clouds. In this paper, we propose a mask voxel classification network for large-scale point clouds pre-training. Our key idea is to divide the point clouds into voxel representations and classify whether the voxel contains point clouds. This simple strategy makes the network to be voxel-aware of the object shape, thus improving the performance of downstream task, such as 3D object detection. Our Voxel-MAE with even a 90% masking ratio can still learn representative features for the high spatial redundancy of largescale point clouds. We also validate the effectiveness of Voxel-MAE in unsupervised domain adaptative task, which proves the generalization ability of Voxel-MAE. Our Voxel-MAE proves that it is feasible to pre-train large-scale point clouds without data annotations to enhance the perception ability of the autonomous vehicle. Extensive experiments show great effectiveness of our pre-trained model with 3D object detectors (SECOND, CenterPoint and PV-RCNN) on two popular datasets (KITTI, Waymo).
+Mask-based pre-training has achieved great success for self-supervised learning in images and languages without manually annotated supervision. However, it has not yet been studied for large-scale point clouds with redundant spatial information. In this research, we propose a mask voxel autoencoder network for pre-training large-scale point clouds, dubbed Voxel-MAE. Our key idea is to transform the point clouds into voxel representations and classify whether the voxel contains point clouds. This simple but effective strategy makes the network voxel-aware of the object shape, thus improving the performance of downstream tasks, such as 3D object detection. Our Voxel-MAE, with even a 90\% masking ratio, can still learn representative features for the high spatial redundancy of large-scale point clouds. We also validate the effectiveness of Voxel-MAE on unsupervised domain adaptative tasks, which proves the generalization ability of Voxel-MAE. Our Voxel-MAE proves that it is feasible to pre-train large-scale point clouds without data annotations to enhance the perception ability of the autonomous vehicle. Extensive experiments show great effectiveness of our pre-training method with 3D object detectors (SECOND, CenterPoint, and PV-RCNN) on three popular datasets (KITTI, Waymo, and nuScenes).
 
 <p align="center">
 <img src="docs/Voxel-MAE.png" width="100%"/>Flowchart of Voxel-MAE
@@ -28,13 +28,19 @@ Train with multiple GPUs:
 bash ./scripts/dist_train_voxel_mae.sh ${NUM_GPUS}  --cfg_file cfgs/kitti_models/voxel_mae_kitti.yaml --batch_size ${BATCH_SIZE}
 
 Train with a single GPU:
-python3 train_voxel_mae.py  --cfg_file cfgs/kitti_models/voxel_mae_kitti.yaml --batch_size 4
+python3 train_voxel_mae.py  --cfg_file cfgs/kitti_models/voxel_mae_kitti.yaml --batch_size ${BATCH_SIZE}
 ```
 
 Waymo:
 
 ```
-python3 train_voxel_mae.py  --cfg_file cfgs/kitti_models/voxel_mae_waymo.yaml --batch_size 4
+python3 train_voxel_mae.py  --cfg_file cfgs/kitti_models/voxel_mae_waymo.yaml --batch_size ${BATCH_SIZE}
+```
+
+nuScenes:
+
+```
+python3 train_voxel_mae.py  --cfg_file cfgs/kitti_models/voxel_mae_nuscenes.yaml --batch_size ${BATCH_SIZE}
 ```
 
 ### Then traing OpenPCDet
