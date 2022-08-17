@@ -56,14 +56,14 @@ bash ./scripts/dist_train.sh ${NUM_GPUS}  --cfg_file cfgs/kitti_models/second.ya
 
 The results are the 3D detection performance of moderate difficulty on the *val* set of KITTI dataset. Results of OpenPCDet are from [here](https://github.com/open-mmlab/OpenPCDet) .
 
-|                                                       |  Car@R11  | Pedestrian@R11 | Cyclist@R11 | Voxel-MAE | 3D Detection |
-| ----------------------------------------------------- | :-------: | :------------: | :---------: | :-------: | ------------ |
-| [SECOND](tools/cfgs/kitti_models/second.yaml)         |   78.62   |     52.98      |    67.15    |           |              |
-| Voxel-MAE+SECOND                                      | **78.90** |   **53.14**    |  **68.08**  |           |              |
-| [SECOND-IoU](tools/cfgs/kitti_models/second_iou.yaml) |   79.09   |     55.74      |    71.31    |           |              |
-| Voxel-MAE+SECOND-IoU                                  | **79.22** |   **55.79**    |  **72.22**  |           |              |
-| [PV-RCNN](tools/cfgs/kitti_models/pv_rcnn.yaml)       |   83.61   |     57.90      |    70.47    |           |              |
-| Voxel-MAE+PV-RCNN                                     | **83.82** |   **59.37**    |  **71.99**  |           |              |
+|                                                       |  Car@R11  | Pedestrian@R11 | Cyclist@R11 | 
+| ----------------------------------------------------- | :-------: | :------------: | :---------: | 
+| [SECOND](tools/cfgs/kitti_models/second.yaml)         |   78.62   |     52.98      |    67.15    | 
+| Voxel-MAE+SECOND                                      | **78.90** |   **53.14**    |  **68.08**  | 
+| [SECOND-IoU](tools/cfgs/kitti_models/second_iou.yaml) |   79.09   |     55.74      |    71.31    | 
+| Voxel-MAE+SECOND-IoU                                  | **79.22** |   **55.79**    |  **72.22**  | 
+| [PV-RCNN](tools/cfgs/kitti_models/pv_rcnn.yaml)       |   83.61   |     57.90      |    70.47    |
+| Voxel-MAE+PV-RCNN                                     | **83.82** |   **59.37**    |  **71.99**  | 
 
 ### Waymo Open Dataset
 
@@ -84,13 +84,13 @@ Similar to  [OpenPCDet](https://github.com/open-mmlab/OpenPCDet) , all models ar
 
 ### nuScenes Dataset 
 
-|   |  mAP   |  NDS       |       mATE|       mASE				     |       	mAOE      |      mAVE      |       mAAE       |       | Voxel-MAE                                                    |                         3D Detection                         |
-| ------------------------------------------------------------ | ------------------: |------------------: | :-----------------: | :-----------------: | :-----------------: | :-----------------: | :-----------------: | ------------------------------------------------------------ | :----------------------------------------------------------: |
-| [SECOND-MultiHead (CBGS)](tools/cfgs/nuscenes_models/cbgs_second_multihead.yaml)                |     50.59        |   62.29   |  31.15     |         |   25.51       |    26.64   |              26.26           |           20.46                            |           |                                                        |
-| Voxel-MAE+SECOND-MultiHead                                            | **50.82** | **62.45**| ** 31.02**| **25.23** | **26.12**| **26.11** |**20.04** |  | |                                                        |
-| [CenterPoint (voxel_size=0.1)](tools/cfgs/nuscenes_models/cbgs_voxel01_res3d_centerpoint.yaml) |         56.03     |    64.54    |     30.11      |     25.55   |     38.28   |     21.94    |                         18.87                                      |             |                |                                       |
-| Voxel-MAE+CenterPoint                                        | **56.45** | **65.02**| **29.73** | **25.17**| **38.38** | **21.47**| ** 18.65** | | |  
- |       
+|                                                              |       mAP |       NDS |   mATE    |   mASE    |   mAOE    |   mAVE    |   mAAE    | 
+| ------------------------------------------------------------ | --------: | --------: | :-------: | :-------: | :-------: | :-------: | :-------: | 
+| [SECOND-MultiHead (CBGS)](tools/cfgs/nuscenes_models/cbgs_second_multihead.yaml) |     50.59 |     62.29 |   31.15   |   25.51   |   26.64   |   26.26   |   20.46   |
+| Voxel-MAE+SECOND-MultiHead                                   | **50.82** | **62.45** | **31.02** | **25.23** | **26.12** | **26.11** | **20.04** | 
+| [CenterPoint (voxel_size=0.1)](tools/cfgs/nuscenes_models/cbgs_voxel01_res3d_centerpoint.yaml) |     56.03 |     64.54 |   30.11   |   25.55   |   38.28   |   21.94   |   18.87   | 
+| Voxel-MAE+CenterPoint                                        | **56.45** | **65.02** | **29.73** | **25.17** | **38.38** | **21.47** | **18.65** |  
+
 
 
 ##  License
