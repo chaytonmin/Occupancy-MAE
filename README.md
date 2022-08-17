@@ -52,37 +52,45 @@ bash ./scripts/dist_train.sh ${NUM_GPUS}  --cfg_file cfgs/kitti_models/second.ya
 
 ## Performance
 
-### KITTI 3D Object Detection
-
-Pre-trained model will be provided soon.
+### KITTI Dataset
 
 The results are the 3D detection performance of moderate difficulty on the *val* set of KITTI dataset. Results of OpenPCDet are from [here](https://github.com/open-mmlab/OpenPCDet) .
 
 |                                                       |  Car@R11  | Pedestrian@R11 | Cyclist@R11 | Voxel-MAE | 3D Detection |
 | ----------------------------------------------------- | :-------: | :------------: | :---------: | :-------: | ------------ |
 | [SECOND](tools/cfgs/kitti_models/second.yaml)         |   78.62   |     52.98      |    67.15    |           |              |
-| Voxel-MAE+SECOND                                      | **78.89** |   **53.32**    |  **68.00**  |           |              |
+| Voxel-MAE+SECOND                                      | **78.90** |   **53.14**    |  **68.08**  |           |              |
 | [SECOND-IoU](tools/cfgs/kitti_models/second_iou.yaml) |   79.09   |     55.74      |    71.31    |           |              |
-| Voxel-MAE+SECOND-IoU                                  | **79.21** |   **55.82**    |  **72.18**  |           |              |
+| Voxel-MAE+SECOND-IoU                                  | **79.22** |   **55.79**    |  **72.22**  |           |              |
 | [PV-RCNN](tools/cfgs/kitti_models/pv_rcnn.yaml)       |   83.61   |     57.90      |    70.47    |           |              |
-| Voxel-MAE+PV-RCNN                                     | **83.75** |   **59.36**    |  **71.99**  |           |              |
+| Voxel-MAE+PV-RCNN                                     | **83.82** |   **59.37**    |  **71.99**  |           |              |
 
-### Waymo Open Dataset Baselines
+### Waymo Open Dataset
 
 Similar to  [OpenPCDet](https://github.com/open-mmlab/OpenPCDet) , all models are trained with **a single frame** of **20% data (~32k frames)** of all the training samples , and the results of each cell here are mAP/mAPH calculated by the official Waymo evaluation metrics on the **whole** validation set (version 1.2).    
 
 | Performance@(train with 20\% Data)                           |              Vec_L1 |       Vec_L2        |       Ped_L1        |       Ped_L2        |       Cyc_L1        |       Cyc_L2        | Voxel-MAE                                                    |                         3D Detection                         |
 | ------------------------------------------------------------ | ------------------: | :-----------------: | :-----------------: | :-----------------: | :-----------------: | :-----------------: | ------------------------------------------------------------ | :----------------------------------------------------------: |
 | [SECOND](tools/cfgs/waymo_models/second.yaml)                |         70.96/70.34 |     62.58/62.02     |     65.23/54.24     |     57.22/47.49     |     57.13/55.62     |     54.97/53.53     |                                                              |                                                              |
-| Voxel-MAE+SECOND                                             | **71.18**/**70.56** | **62.88**/**62.31** | **67.19**/**55.61** | **59.05**/**48.77** | **57.71**/**56.21** | **55.58**/**54.13** | [model](https://drive.google.com/file/d/14vIDI5mXRJbbcU1168OtFG1k6MyS1oaJ/view?usp=sharing) | [model](https://drive.google.com/file/d/1oNaBaDqrYz5a4K0E1bKzrM_cc-CFnjkg/view?usp=sharing) |
+| Voxel-MAE+SECOND                                             | **71.12**/**70.58** | **62.67**/**62.34** | **67.21**/**55.68** | **59.03**/**48.79** | **57.73**/**56.18** | **55.62**/**54.17** | [model](https://drive.google.com/file/d/14vIDI5mXRJbbcU1168OtFG1k6MyS1oaJ/view?usp=sharing) | [model](https://drive.google.com/file/d/1oNaBaDqrYz5a4K0E1bKzrM_cc-CFnjkg/view?usp=sharing) |
 | [CenterPoint](tools/cfgs/waymo_models/centerpoint_without_resnet.yaml) |         71.33/70.76 |     63.16/62.65     |     72.09/65.49     |     64.27/58.23     |     68.68/67.39     |     66.11/64.87     |                                                              |                                                              |
-| Voxel-MAE+CenterPoint                                        | **71.87**/**71.31** | **64.03**/**63.51** | **73.90**/**67.10** | **65.80**/**59.61** | **70.28**/**69.02** | **67.75**/**66.52** | [model](https://drive.google.com/file/d/14vIDI5mXRJbbcU1168OtFG1k6MyS1oaJ/view?usp=sharing) | [model](https://drive.google.com/file/d/1mqWsusldfYT0FSMn2YoH9EzE-Ffi-4kc/view?usp=sharing) |
+| Voxel-MAE+CenterPoint                                        | **71.89**/**71.33** | **64.05**/**63.53** | **73.85**/**67.12** | **65.78**/**59.62** | **70.29**/**69.03** | **67.76**/**66.53** | [model](https://drive.google.com/file/d/14vIDI5mXRJbbcU1168OtFG1k6MyS1oaJ/view?usp=sharing) | [model](https://drive.google.com/file/d/1mqWsusldfYT0FSMn2YoH9EzE-Ffi-4kc/view?usp=sharing) |
 | [PV-RCNN (AnchorHead)](tools/cfgs/waymo_models/pv_rcnn.yaml) |         75.41/74.74 |     67.44/66.80     |     71.98/61.24     |     63.70/53.95     |     65.88/64.25     |     63.39/61.82     |                                                              |                                                              |
-| Voxel-MAE+PV-RCNN (AnchorHead                                | **75.93**/**75.27** | **67.97**/**67.34** | **74.03**/**63.55** | **64.92**/**55.55** | **67.17**/**65.54** | **64.63**/**63.07** | [model](https://drive.google.com/file/d/14vIDI5mXRJbbcU1168OtFG1k6MyS1oaJ/view?usp=sharing) |      [model](https://drive.google.com/file/d/1Z8B6eMRrFQZK9-UEomNiwGA6YRFqzrXT/view?usp=sharing)       |
+| Voxel-MAE+PV-RCNN (AnchorHead                                | **75.94**/**75.28** | **67.94**/**67.34** | **74.02**/**63.48** | **64.91**/**55.57** | **67.21**/**65.49** | **64.62**/**63.02** | [model](https://drive.google.com/file/d/14vIDI5mXRJbbcU1168OtFG1k6MyS1oaJ/view?usp=sharing) |      [model](https://drive.google.com/file/d/1Z8B6eMRrFQZK9-UEomNiwGA6YRFqzrXT/view?usp=sharing)       |
 | [PV-RCNN (CenterHead)](tools/cfgs/waymo_models/pv_rcnn_with_centerhead_rpn.yaml) |         75.95/75.43 |     68.02/67.54     |     75.94/69.40     |     67.66/61.62     |     70.18/68.98     |     67.73/66.57     |                                                              |                                                              |
-| Voxel-MAE+PV-RCNN (CenterHead)                               | **77.34**/**76.82** | **68.70**/**68.23** | **77.70**/**71.15** | **69.54**/**63.45** | **70.54**/**69.39** | **68.10**/**66.99** | [model](https://drive.google.com/file/d/14vIDI5mXRJbbcU1168OtFG1k6MyS1oaJ/view?usp=sharing) | [model](https://drive.google.com/file/d/19HkpHMB0akxnR0Wa6bv5cuOFx9G93UXf/view?usp=sharing) |
+| Voxel-MAE+PV-RCNN (CenterHead)                               | **77.29**/**76.81** | **68.71**/**68.21** | **77.70**/**71.13** | **69.53**/**63.46** | **70.55**/**69.39** | **68.11**/**66.95** | [model](https://drive.google.com/file/d/14vIDI5mXRJbbcU1168OtFG1k6MyS1oaJ/view?usp=sharing) | [model](https://drive.google.com/file/d/19HkpHMB0akxnR0Wa6bv5cuOFx9G93UXf/view?usp=sharing) |
 | [PV-RCNN++](tools/cfgs/waymo_models/pv_rcnn_plusplus.yaml)   |         77.82/77.32 |     69.07/68.62     |     77.99/71.36     |     69.92/63.74     |     71.80/70.71     |     69.31/68.26     |                                                              |                                                              |
-| Voxel-MAE+PV-RCNN++                                          | **78.24**/**77.74** | **69.56**/**69.11** | **79.84**/**73.22** | **71.06**/**64.97** |     71.75/70.64     |     69.26/68.20     | [model](https://drive.google.com/file/d/14vIDI5mXRJbbcU1168OtFG1k6MyS1oaJ/view?usp=sharing) | [model](https://drive.google.com/file/d/1rkxg8L9M8p1RsnBPIgwsmdQB6_-Ft2CX/view?usp=sharing) |
+| Voxel-MAE+PV-RCNN++                                          | **78.23**/**77.72** | **69.54**/**69.12** | **79.85**/**73.23** | **71.07**/**64.96** |     71.80/70.64     |     69.31/68.26     | [model](https://drive.google.com/file/d/14vIDI5mXRJbbcU1168OtFG1k6MyS1oaJ/view?usp=sharing) | [model](https://drive.google.com/file/d/1rkxg8L9M8p1RsnBPIgwsmdQB6_-Ft2CX/view?usp=sharing) |
+
+### nuScenes Dataset 
+
+|   |  mAP   |  NDS       |       mATE|       mASE				     |       	mAOE      |      mAVE      |       mAAE       |       | Voxel-MAE                                                    |                         3D Detection                         |
+| ------------------------------------------------------------ | ------------------: |------------------: | :-----------------: | :-----------------: | :-----------------: | :-----------------: | :-----------------: | ------------------------------------------------------------ | :----------------------------------------------------------: |
+| [SECOND-MultiHead (CBGS)](tools/cfgs/nuscenes_models/cbgs_second_multihead.yaml)                |     50.59        |   62.29   |  31.15     |         |   25.51       |    26.64   |              26.26           |           20.46                            |           |                                                        |
+| Voxel-MAE+SECOND-MultiHead                                            | **50.82** | **62.45**| ** 31.02**| **25.23** | **26.12**| **26.11** |**20.04** |  | |                                                        |
+| [CenterPoint (voxel_size=0.1)](tools/cfgs/nuscenes_models/cbgs_voxel01_res3d_centerpoint.yaml) |         56.03     |    64.54    |     30.11      |     25.55   |     38.28   |     21.94    |                         18.87                                      |             |                |                                       |
+| Voxel-MAE+CenterPoint                                        | **56.45** | **65.02**| **29.73** | **25.17**| **38.38** | **21.47**| ** 18.65** | | |  
+ |       
 
 
 ##  License
@@ -100,7 +108,7 @@ If you find this project useful in your research, please consider cite:
 ```
 @ARTICLE{Voxel-MAE,
     title={Voxel-MAE: Masked Autoencoders for Pre-training Large-scale Point Clouds},
-    author={{Min}, Chen and {Zhao}, Dawei and {Xiao}, Liang and {Nie}, Yiming and {Dai}, Bin}},
+    author={Chen Min, Xinli Xu, Dawei Zhao, Liang Xiao, Yiming Nie, and Bin Dai},
     journal = {arXiv e-prints},
     year={2022}
 }
