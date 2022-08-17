@@ -151,15 +151,36 @@ class Voxel_MAE(nn.Module):
                 encoded_spconv_tensor: sparse tensor
                 point_features: (N, C)
         """
+  
         voxel_features, voxel_coords = batch_dict['voxel_features'], batch_dict['voxel_coords']
 
         select_ratio = 1 - self.masked_ratio # ratio for select voxel
 
+        voxel_coords_distance = (voxel_coords[:,2]**2 + voxel_coords[:,3]**2)**0.5
+
+        select_30 = voxel_coords_distance[:]<=30
+        select_30to50 = (voxel_coords_distance[:]>30) & (voxel_coords_distance[:]<=50)
+        select_50 = voxel_coords_distance[:]>50
+
+        id_list = [i for i in range(voxel_coords.shape[0])]
+        id_list_select_30 = [i for i in id_list if select_30[i]==True]
+        id_list_select_30to50 = [i for i in id_list if select_30to50[i]==True]
+        id_list_select_50 = [i for i in id_list if select_50[i]==True]
+
+        shuffle_id_list_select_30 = id_list_select_30.copy()
+        random.shuffle(shuffle_id_list_select_30)
+
+        shuffle_id_list_select_30to50 = id_list_select_30to50.copy()
+        random.shuffle(shuffle_id_list_select_30to50)
+
+        shuffle_id_list_select_50 = id_list_select_50.copy()
+        random.shuffle(shuffle_id_list_select_50)
+
+        slect_index = shuffle_id_list_select_30[:int(select_ratio*len(shuffle_id_list_select_30))] + \
+            shuffle_id_list_select_30to50[:int((select_ratio+0.2)*len(shuffle_id_list_select_30to50))] + \
+            shuffle_id_list_select_50[:int((select_ratio+0.2)*len(shuffle_id_list_select_50))]
 
         nums = voxel_features.shape[0]
-
-        slect_index = np.random.randint(0,nums,size=int(select_ratio*nums))
-
 
         voxel_fratures_all_one = torch.ones(nums,1).to(voxel_features.device)
         voxel_features_partial, voxel_coords_partial = voxel_features[slect_index,:], voxel_coords[slect_index,:]
