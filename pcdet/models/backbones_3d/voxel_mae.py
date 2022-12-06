@@ -163,7 +163,7 @@ class Voxel_MAE(nn.Module):
         select_50 = voxel_coords_distance[:]>50
         
         
-        id_list = [i for i in range(coords.shape[0])]
+        #id_list = [i for i in range(coords.shape[0])]
         id_list_select_30 = torch.argwhere(select_30==True).reshape(torch.argwhere(select_30==True).shape[0])
         id_list_select_30to50 = torch.argwhere(select_30to50==True).reshape(torch.argwhere(select_30to50==True).shape[0])
         id_list_select_50 = torch.argwhere(select_50==True).reshape(torch.argwhere(select_50==True).shape[0])
