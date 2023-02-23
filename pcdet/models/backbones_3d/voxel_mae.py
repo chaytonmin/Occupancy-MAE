@@ -162,11 +162,9 @@ class Voxel_MAE(nn.Module):
         select_30to50 = (voxel_coords_distance[:]>30) & (voxel_coords_distance[:]<=50)
         select_50 = voxel_coords_distance[:]>50
         
-        
-        #id_list = [i for i in range(coords.shape[0])]
-        id_list_select_30 = torch.argwhere(select_30==True).reshape(torch.argwhere(select_30==True).shape[0])
-        id_list_select_30to50 = torch.argwhere(select_30to50==True).reshape(torch.argwhere(select_30to50==True).shape[0])
-        id_list_select_50 = torch.argwhere(select_50==True).reshape(torch.argwhere(select_50==True).shape[0])
+        id_list_select_30 = torch.nonzero(select_30).reshape(torch.nonzero(select_30).shape[0])
+        id_list_select_30to50 = torch.nonzero(select_30to50).reshape(torch.nonzero(select_30to50).shape[0])
+        id_list_select_50 = torch.nonzero(select_50).reshape(torch.nonzero(select_50).shape[0])
         
         shuffle_id_list_select_30 = id_list_select_30
         random.shuffle(shuffle_id_list_select_30)
