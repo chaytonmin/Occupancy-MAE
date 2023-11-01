@@ -1,6 +1,6 @@
 # Occupancy-MAE: Self-supervised Pre-training Large-scale LiDAR Point Clouds with Masked Occupancy Autoencoders
 
-Repository for our arxiv paper ["Occupancy-MAE: Self-supervised Pre-training Large-scale LiDAR Point Clouds with Masked Occupancy Autoencoders"](https://arxiv.org/abs/2206.09900).
+Repository for our TIV 2023 paper ["Occupancy-MAE: Self-supervised Pre-training Large-scale LiDAR Point Clouds with Masked Occupancy Autoencoders"](https://arxiv.org/abs/2206.09900).
 
 ## Introduction
 Mask-based pre-training has achieved great success for self-supervised learning in images and languages without manually annotated supervision. However, it has not yet been studied for large-scale point clouds with redundant spatial information. In this research, we propose a mask voxel autoencoder network for pre-training large-scale point clouds, dubbed Voxel-MAE. Our key idea is to transform the point clouds into voxel representations and classify whether the voxel contains point clouds. This simple but effective strategy makes the network voxel-aware of the object shape, thus improving the performance of downstream tasks, such as 3D object detection. Our Voxel-MAE, with even a 90\% masking ratio, can still learn representative features for the high spatial redundancy of large-scale point clouds. We also validate the effectiveness of Voxel-MAE on unsupervised domain adaptative tasks, which proves the generalization ability of Voxel-MAE. Our Voxel-MAE proves that it is feasible to pre-train large-scale point clouds without data annotations to enhance the perception ability of the autonomous vehicle. Extensive experiments show great effectiveness of our pre-training method with 3D object detectors (SECOND, CenterPoint, and PV-RCNN) on three popular datasets (KITTI, Waymo, and nuScenes).
@@ -106,11 +106,12 @@ If you find this project useful in your research, please consider cite:
 
 
 ```
-@ARTICLE{Occupancy-MAE,
-    title={Voxel-MAE: Masked Autoencoders for Pre-training Large-scale Point Clouds},
-    author={Chen Min, Xinli Xu, Dawei Zhao, Liang Xiao, Yiming Nie, and Bin Dai},
-    journal = {arXiv e-prints},
-    year={2022}
+@article{min2023occupancy,
+  title={Occupancy-MAE: Self-Supervised Pre-Training Large-Scale LiDAR Point Clouds With Masked Occupancy Autoencoders},
+  author={Min, Chen and Xiao, Liang and Zhao, Dawei and Nie, Yiming and Dai, Bin},
+  journal={IEEE Transactions on Intelligent Vehicles},
+  year={2023},
+  publisher={IEEE}
 }
 ```
 
