@@ -163,7 +163,6 @@ class Voxel_MAE(nn.Module):
         select_ratio = 1 - self.masked_ratio # ratio for select voxel
 
         # voxel_coords_distance = (voxel_coords[:,2]**2 + voxel_coords[:,3]**2)**0.5
-
         voxel_size = torch.tensor(self.voxel_size[::-1]).to(voxel_coords.device)
         point_cloud_range = torch.tensor(list(self.point_cloud_range)[0:3][::-1]).to(voxel_coords.device)
         voxel_range = (voxel_coords[:, 1:] * voxel_size) + point_cloud_range + (voxel_size * 0.5)    # z, y, x
@@ -172,7 +171,6 @@ class Voxel_MAE(nn.Module):
         select_30 = voxel_coords_distance[:]<=30
         select_30to50 = (voxel_coords_distance[:]>30) & (voxel_coords_distance[:]<=50)
         select_50 = voxel_coords_distance[:]>50
-        
         
         #id_list = [i for i in range(coords.shape[0])]
         id_list_select_30 = torch.argwhere(select_30==True).reshape(torch.argwhere(select_30==True).shape[0])
