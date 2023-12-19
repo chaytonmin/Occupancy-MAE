@@ -130,6 +130,12 @@ class Voxel_MAE_res(nn.Module):
 
         return loss, tb_dict
 
+    @staticmethod
+    def fisher_yates_shuffle(tensor):
+        size = tensor.size(0)
+        random_idx = torch.randperm(size)
+        shuffled_tensor = tensor[random_idx]
+        return shuffled_tensor
 
     def forward(self, batch_dict):
         """
@@ -147,29 +153,29 @@ class Voxel_MAE_res(nn.Module):
 
         select_ratio = 1 - self.masked_ratio # ratio for select voxel
 
-        voxel_coords_distance = (voxel_coords[:,2]**2 + voxel_coords[:,3]**2)**0.5
-
+        # voxel_coords_distance = (voxel_coords[:,2]**2 + voxel_coords[:,3]**2)**0.5
+        voxel_size = torch.tensor(self.voxel_size[::-1]).to(voxel_coords.device)
+        point_cloud_range = torch.tensor(list(self.point_cloud_range)[0:3][::-1]).to(voxel_coords.device)
+        voxel_range = (voxel_coords[:, 1:] * voxel_size) + point_cloud_range + (voxel_size * 0.5)    # z, y, x
+        voxel_coords_distance = (voxel_range[:,1]**2 + voxel_range[:,2]**2)**0.5
+        
         select_30 = voxel_coords_distance[:]<=30
         select_30to50 = (voxel_coords_distance[:]>30) & (voxel_coords_distance[:]<=50)
         select_50 = voxel_coords_distance[:]>50
+        
+        #id_list = [i for i in range(coords.shape[0])]
+        id_list_select_30 = torch.argwhere(select_30==True).reshape(torch.argwhere(select_30==True).shape[0])
+        id_list_select_30to50 = torch.argwhere(select_30to50==True).reshape(torch.argwhere(select_30to50==True).shape[0])
+        id_list_select_50 = torch.argwhere(select_50==True).reshape(torch.argwhere(select_50==True).shape[0])
 
-        id_list = [i for i in range(voxel_coords.shape[0])]
-        id_list_select_30 = [i for i in id_list if select_30[i]==True]
-        id_list_select_30to50 = [i for i in id_list if select_30to50[i]==True]
-        id_list_select_50 = [i for i in id_list if select_50[i]==True]
-
-        shuffle_id_list_select_30 = id_list_select_30.copy()
-        random.shuffle(shuffle_id_list_select_30)
-
-        shuffle_id_list_select_30to50 = id_list_select_30to50.copy()
-        random.shuffle(shuffle_id_list_select_30to50)
-
-        shuffle_id_list_select_50 = id_list_select_50.copy()
-        random.shuffle(shuffle_id_list_select_50)
-
-        slect_index = shuffle_id_list_select_30[:int(select_ratio*len(shuffle_id_list_select_30))] + \
-            shuffle_id_list_select_30to50[:int((select_ratio+0.2)*len(shuffle_id_list_select_30to50))] + \
-            shuffle_id_list_select_50[:int((select_ratio+0.2)*len(shuffle_id_list_select_50))]
+        shuffle_id_list_select_30 = self.fisher_yates_shuffle(id_list_select_30)
+        shuffle_id_list_select_30to50 = self.fisher_yates_shuffle(id_list_select_30to50)
+        shuffle_id_list_select_50 = self.fisher_yates_shuffle(id_list_select_50)
+                
+        slect_index = torch.cat((shuffle_id_list_select_30[:int(select_ratio*len(shuffle_id_list_select_30))], 
+                                 shuffle_id_list_select_30to50[:int((select_ratio+0.2)*len(shuffle_id_list_select_30to50))], 
+                                 shuffle_id_list_select_50[:int((select_ratio+0.2)*len(shuffle_id_list_select_50))]
+        ), 0)
 
         nums = voxel_features.shape[0]
 
